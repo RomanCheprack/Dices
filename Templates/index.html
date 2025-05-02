@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="he">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>הטלת קוביות</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        .container {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .dice-area {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .dice {
+            font-size: 350px;
+            line-height: 1;
+        }
+
+        .roll-button {
+            font-size: 28px;
+            padding: 18px 50px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .roll-button:active {
+            background-color: #388E3C;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="dice-area">
+            <div class="dice" id="dice1">🎲</div>
+            <button class="roll-button" id="rollBtn">הטל</button>
+            <div class="dice" id="dice2">🎲</div>
+        </div>
+    </div>
+
+    <audio id="rollSound" src="{{ url_for('static', filename='dice-142528.mp3') }}"></audio>
+
+    <script>
+        const diceFaces = ["⚀", "⚁", "⚂", "⚃", "⚄", "⚅"];
+        const dice1 = document.getElementById("dice1");
+        const dice2 = document.getElementById("dice2");
+        const rollBtn = document.getElementById("rollBtn");
+        const sound = document.getElementById("rollSound");
+
+        function rollDice() {
+            let duration = 900; // 1 second duration for the dice roll sound
+            let delay = 50;     // milliseconds between each face change
+            let count = 0;
+            let rolls = Math.floor(duration / delay); // Calculate number of rolls based on sound duration
+
+            try {
+                sound.currentTime = 0;
+                sound.play().catch(err => console.log("Audio play blocked:", err));
+            } catch (err) {
+                console.log("Audio error:", err);
+            }
+
+            const interval = setInterval(() => {
+                dice1.textContent = diceFaces[Math.floor(Math.random() * 6)];
+                dice2.textContent = diceFaces[Math.floor(Math.random() * 6)];
+                count++;
+                if (count >= rolls) {
+                    clearInterval(interval);
+                    // Final result
+                    dice1.textContent = diceFaces[Math.floor(Math.random() * 6)];
+                    dice2.textContent = diceFaces[Math.floor(Math.random() * 6)];
+                }
+            }, delay);
+        }
+
+        rollBtn.addEventListener("click", (e) => {
+            e.preventDefault(); // prevent form submit
+            rollDice();
+        });
+    </script>
+</body>
+</html>
