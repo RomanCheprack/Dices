@@ -2,54 +2,9 @@
 <html lang="he">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>הטלת קוביות</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f2f2f2;
-            margin: 0;
-            padding: 0;
-            text-align: center;
-        }
-
-        .container {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            gap: 40px;
-        }
-
-        .dice-area {
-            display: flex;
-            flex-direction: row;
-            justify-content: center;
-            align-items: center;
-            gap: 40px;
-        }
-
-        .dice {
-            font-size: 350px;
-            line-height: 1;
-        }
-
-        .roll-button {
-            font-size: 28px;
-            padding: 18px 50px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 15px;
-            cursor: pointer;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-        }
-
-        .roll-button:active {
-            background-color: #388E3C;
-        }
-    </style>
 </head>
 <body>
     <div class="container">
@@ -70,8 +25,8 @@
         const sound = document.getElementById("rollSound");
 
         function rollDice() {
-            let duration = 900; // 1 second duration for the dice roll sound
-            let delay = 50;     // milliseconds between each face change
+            let duration = 1000; // 1 second duration for the dice roll sound
+            let delay = 50;      // shortened interval (faster dice rolls)
             let count = 0;
             let rolls = Math.floor(duration / delay); // Calculate number of rolls based on sound duration
 
