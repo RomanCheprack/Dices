@@ -19,7 +19,7 @@ html, body {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 40px;
+    gap: 20px;
     height: 100%;
     width: 100%;
     flex-direction: column; /* Default = portrait */
